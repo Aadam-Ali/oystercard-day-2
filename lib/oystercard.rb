@@ -22,10 +22,13 @@ class Oystercard
     fail "Balance is less that £#{MIN_FARE}" if @balance < MIN_FARE
     @in_journey = true
   end
-  
+  #Update the touch_out method to reduce the balance by minimum fare.
   def touch_out
     @in_journey = false
+    deduct(MIN_FARE)
   end
+
+  private
 
   def deduct(amount)
     @balance -= amount
