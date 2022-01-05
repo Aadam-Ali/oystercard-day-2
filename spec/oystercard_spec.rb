@@ -21,7 +21,6 @@ describe Oystercard do
     end
   end
 
-<<<<<<< HEAD
   describe "#in_journey?" do
     it "is initially not on a journey" do
       expect(subject).not_to be_in_journey
@@ -30,24 +29,32 @@ describe Oystercard do
 
   describe "#touch_in" do
     it "is in a journey after touching in" do 
+      subject.top_up(5)
       subject.touch_in
       expect(subject).to be_in_journey
+    end
+
+    it "fails if the balance is less than £1" do
+      min_fare = 1
+      expect { subject.touch_in }.to raise_error "Balance is less that £#{min_fare}"
     end
   end
 
   describe "#touch_out" do
     it "is not in a journey after touching out" do
+      subject.top_up(5)
       subject.touch_in 
       subject.touch_out
       expect(subject).not_to be_in_journey
-=======
+    end
+  end
+
   describe "#deduct" do
     it { is_expected.to respond_to(:deduct).with(1).argument }
 
     it "deducts an amount from the balance" do
       subject.top_up(5)
       expect { subject.deduct(2) }.to change {subject.balance}.by -2
->>>>>>> 2d3ed0fe668d3251c872cdee3ca9c6a0e8ef99bd
     end
   end
 end
